@@ -35,7 +35,7 @@ public class SimpleDictionary implements GhostDictionary {
 
     public SimpleDictionary(InputStream wordListStream) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(wordListStream));
-        ArrayList words = new ArrayList<>();
+        words = new ArrayList<>();
         String line = null;
         while((line = in.readLine()) != null) {
             String word = line.trim();
