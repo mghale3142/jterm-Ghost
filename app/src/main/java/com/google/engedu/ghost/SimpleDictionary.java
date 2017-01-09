@@ -61,7 +61,26 @@ public class SimpleDictionary implements GhostDictionary {
      */
     @Override
     public boolean isWord(String word) {
-        return words.contains(word);
+        // binary search again ?
+        int low = 0;
+        int high = words.size() - 1;
+        int mid ;
+        int compare ;
+        while(low <= high) {
+            mid = low + ((high - low)/2);
+            compare = words.get(mid).compareTo(word);
+            if (compare==0) {
+                return true;
+            }
+            else if (compare < 0) {
+                low = mid + 1;
+            }
+            else if (compare > 0){
+                high = mid - 1;
+            }
+
+        }
+        return false;
     }
 
     /**
@@ -74,6 +93,26 @@ public class SimpleDictionary implements GhostDictionary {
     @Override
     public String getAnyWordStartingWith(String prefix) throws NoSuchElementException {
         // TODO(you): Implement using Binary Search
+        //remember string.compare, compares lexicographically.
+        //from the words
+        int low = 0;
+        int high = words.size() - 1;
+        int mid ;
+        String midWord;
+        while(low <= high) {
+            mid = low + ((high - low)/2);
+            midWord = words.get(mid);
+            if (midWord.startsWith(prefix)) {
+                return midWord;
+            }
+            else if (midWord.compareTo(prefix) < 0) {
+                low = mid + 1;
+            }
+            else if (midWord.compareTo(prefix) > 0){
+                high = mid - 1;
+            }
+
+        }
         return null;
     }
 
@@ -82,6 +121,9 @@ public class SimpleDictionary implements GhostDictionary {
      * that prefix, or null if no word in the dictionary starts with that prefix.
      *
      * What defines a "good" starter word is left to the implementer.
+     * Ideally, the word ends on the other players side so length = prefix + 2
+     * also, if the word doesn't contain another word inside it for example suffering is a bad word because suffer is already a word
+     * and if
      *
      * @param prefix
      * @return

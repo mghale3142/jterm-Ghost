@@ -136,11 +136,12 @@ public class GhostActivity extends AppCompatActivity {
                 status.setText(String.format("%s is a word. The computer wins!", currentWord));
                 return true;
             } else {
-                // The computer loses, it has formed a word.
+                // The computer loses, it has formed a word. --> because the player issued the challenge
                 status.setText(String.format("%s is a word. You win!", currentWord));
                 return true;
             }
         } else if (TextUtils.isEmpty(dictionary.getAnyWordStartingWith(currentWord))) {
+            //invalid word case
             if (!fromUser) {
                 // This is not a valid word prefix. The user loses.
                 status.setText(String.format("%s is an invalid prefix. The computer wins!",
@@ -172,6 +173,7 @@ public class GhostActivity extends AppCompatActivity {
 
         // Do computer turn stuff then make it the user's turn again
         status.setText(R.string.computer_turn);
+        // odd number so that hte computer can win
         String next = dictionary.getGoodWordStartingWith(currentWord);
         currentWord += next.charAt(currentWord.length());
         // We can now update the text field with the computer's word.
